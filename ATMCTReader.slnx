@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ATMCTReader.CLI/ATMCTReader.CLI.csproj" />
+  <Project Path="ATMCTReader.Models/ATMCTReader.Models.csproj" />
+  <Project Path="ATMCTReader.Parser/ATMCTReader.Parser.csproj" />
+  <Project Path="ATMCTReader/ATMCTReader.App.csproj" />
+</Solution>
