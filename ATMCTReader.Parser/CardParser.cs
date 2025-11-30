@@ -18,6 +18,7 @@ public static class CardParser
         var zonesProvider = new ZonesProvider();
         var ticketTypesProvider = new TicketTypesProvider();
         var companiesProvider = new CompaniesProvider();
+        var profilesProvider = new ProfilesProvider();
 
         var bytes = GetLine(card, 0x0).Reverse().ToArray();
         uint UUID = (uint)((bytes[12] << 24) + (bytes[13] << 16) + (bytes[14] << 8) + bytes[15]);
@@ -47,6 +48,7 @@ public static class CardParser
 
         bytes = GetLine(card, 0xD0).Reverse().ToArray();
         int p = bytes[3] >> 2;
+        Profile profile = profilesProvider.Get(p);
         int ea = ((bytes[3] & 3) << 6) + (bytes[4] >> 2);
         int m = ((bytes[4] & 3) << 8) + bytes[5];
 
@@ -74,7 +76,10 @@ public static class CardParser
         CurrentTicket currentTicket;
         {
             bytes = GetLine(card, 0x140).Reverse().ToArray();
-            int ticketType = bytes[14];
+            int ticketType = ((bytes[13] & 3) << 8) + bytes[14];
+            int numberOfZones = bytes[5] >> 2;
+            int validDaysFromFirstUse = bytes[10];
+            int trips = bytes[13] >> 2;
 
             bytes = GetLine(card, 0x150).Reverse().ToArray();
             int tripsLeft = bytes[7] >> 1;
@@ -91,7 +96,9 @@ public static class CardParser
                 Type = ticketTypesProvider.Get(ticketType),
                 FirstZone = zonesProvider.Get(firstZone),
                 ExpireDate = ticketExpireDate,
-                TripsLeft = tripsLeft
+                TripsLeft = tripsLeft,
+                NumberOfZones = numberOfZones,
+                ValidDaysFromFirstUse = validDaysFromFirstUse
             };
         }
 
@@ -107,7 +114,7 @@ public static class CardParser
                     bytes[2] & 15,
                     day
                 );
-                int ticketType = bytes[7];
+                int ticketType = ((bytes[6] & 3) << 8) + bytes[7];
                 topUps.Add(new TopUp
                 {
                 Date = date,
@@ -161,6 +168,7 @@ public static class CardParser
             StartYear = startYear,
             ExpireDate = expireDate,
             P = p,
+            Profile = profile,
             EA = ea,
             M = m,
             LastValidation = lastValidation,

@@ -20,6 +20,7 @@ public class Card
     public DateTime ExpireDate { get; init; }
     public int ExpireYear => ExpireDate.Year;
     public int P { get; init; }
+    public required Profile Profile { get; init; }
     public int EA { get; init; }
     public int M { get; init; }
     public required Validation LastValidation { get; init; }
