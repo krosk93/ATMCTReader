@@ -133,7 +133,7 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
             AnsiConsole.Markup($"{Convert.ToString(bytes[6], 2).PadLeft(8, '0')}");
             AnsiConsole.Markup($"{Convert.ToString(bytes[7], 2).PadLeft(8, '0')}");
             AnsiConsole.Markup($"{Convert.ToString(bytes[8], 2).PadLeft(8, '0')}");
-            AnsiConsole.Markup($"{Convert.ToString(bytes[9], 2).PadLeft(8, '0')}");
+            AnsiConsole.Markup($"[lightsalmon3]{Convert.ToString(bytes[9], 2).PadLeft(8, '0')}[/]");
             AnsiConsole.Markup($"[lightsalmon3]{Convert.ToString(bytes[10], 2).PadLeft(8, '0')}[/]");
             AnsiConsole.Markup($"{Convert.ToString(bytes[11], 2).PadLeft(8, '0')}");
             AnsiConsole.Markup($"{Convert.ToString(bytes[12], 2).PadLeft(8, '0')}");
@@ -151,8 +151,7 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
             AnsiConsole.Markup("        ");
             AnsiConsole.Markup("        ");
             AnsiConsole.Markup("        ");
-            AnsiConsole.Markup("        ");
-            AnsiConsole.Markup("[lightsalmon3]iiiiiiii[/]");
+            AnsiConsole.Markup("[lightsalmon3]iiiiiiiiiiiiiiii[/]");
             AnsiConsole.Markup("        ");
             AnsiConsole.Markup("        ");
             AnsiConsole.Markup("[chartreuse1]vvvvvv[/]");
@@ -219,7 +218,16 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
             statusTable.AddColumn("[bold]Viatges restants[/]");
             statusTable.AddColumn("[bold]Caducitat títol[/]");
             statusTable.AddColumn("[bold]Zona primera validació[/]");
-            statusTable.AddRow(c.CurrentTicket.Type.Name, c.CurrentTicket.NumberOfZones.ToString(), c.CurrentTicket.TripsLeft.ToString(), c.CurrentTicket.ExpireDate.HasValue ? c.CurrentTicket.ExpireDate.Value.ToString("dd/MM/yyyy") : "Sense caducitat", c.CurrentTicket.FirstZone.Name);
+            statusTable.AddRow(
+                c.CurrentTicket.Type.Name, 
+                c.CurrentTicket.NumberOfZones.ToString(), 
+                c.CurrentTicket.TripsLeft.ToString(), 
+                c.CurrentTicket.ExpireDate.HasValue 
+                ? (
+                    c.CurrentTicket.ExpireDate.Value > DateTime.Now 
+                    ? c.CurrentTicket.ExpireDate.Value.ToString("dd/MM/yyyy")
+                    : $"[bold red]!! {c.CurrentTicket.ExpireDate.Value:dd/MM/yyyy} !![/]"
+                ) : "Sense caducitat", c.CurrentTicket.FirstZone.Name);
             AnsiConsole.Write(statusTable);
 
         }
@@ -232,12 +240,13 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
             rechargeTable.AddColumn("[bold]Títol[/]");
             rechargeTable.Title = new TableTitle("[bold]Recàrregues[/]");
         }
-        foreach (var (topUp, i) in c.TopUps.Select((el, i) => (el, i)))
-        {
-            if (settings.Pretty)
+        if (settings.Pretty)
+            foreach (var topUp in c.TopUps.OrderByDescending(t => t.Date)) {
                 rechargeTable.AddRow(topUp.Date.ToString("dd/MM/yyyy"), topUp.Type.Name);
-            else
-            {
+            }
+        else
+        {
+            foreach (var (topUp, i) in c.TopUps.Select((el, i) => (el, i))) {
                 AnsiConsole.WriteLine($"Recàrrega {i + 1} de {topUp.Type.Name} feta el {topUp.Date:dd/MM/yyyy}");
                 var bytes = GetLine(card, 0x240 + 0x10 * i).Reverse().ToArray();
                 AnsiConsole.WriteLine(string.Join("      ", bytes.Select(x => Convert.ToString(x, 16).PadLeft(2, '0'))));

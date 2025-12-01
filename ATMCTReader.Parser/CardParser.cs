@@ -53,7 +53,7 @@ public static class CardParser
         int m = ((bytes[4] & 3) << 8) + bytes[5];
 
         bytes = GetLine(card, 0x100).Reverse().ToArray();
-        Validation lastValidation;
+        LastValidation lastValidation;
         {
             int minutes = bytes[1] >> 2;
             int hours = ((bytes[1] & 0x3) << 3) + (bytes[2] >> 5);
@@ -64,13 +64,15 @@ public static class CardParser
             int stop = (bytes[5] << 7) + (bytes[6] >> 1);
             int op = ((bytes[6] & 1) << 7) + (bytes[7] >> 1);
             int line = ((bytes[7] & 1) << 10) + (bytes[8] << 2) + (bytes[9] >> 6);
-            lastValidation = new Validation
+            bool toppedUp = (bytes[15] & 1) == 1;
+            lastValidation = new LastValidation
             {
                 Instant = new DateTime(year, month, day, hours, minutes, 0),
                 Zone = zonesProvider.Get(zone),
                 Stop = stopsProvider.Get(stop),
                 Company = companiesProvider.Get(op),
-                Line = linesProvider.Get(line)
+                Line = linesProvider.Get(line),
+                ToppedUp = toppedUp,
             };
         }
         CurrentTicket currentTicket;
@@ -86,10 +88,11 @@ public static class CardParser
             int day = ((bytes[12] & 1) << 4) + (bytes[13] >> 4);
             int month = bytes[13] & 15;
             int nextYear = bytes[14] >> 7;
+            int year = bytes[15];
             int firstZone = ((bytes[2] & 15) << 4) + (bytes[3] >> 4);
             DateTime? ticketExpireDate = 
                 day != 0
-                    ? new DateTime(startYear + nextYear, month, day).AddDays(1).AddTicks(-1)
+                    ? new DateTime(startYear + year + nextYear, month, day).AddDays(1).AddTicks(-1)
                     : null;
             currentTicket = new CurrentTicket
             {
@@ -98,7 +101,8 @@ public static class CardParser
                 ExpireDate = ticketExpireDate,
                 TripsLeft = tripsLeft,
                 NumberOfZones = numberOfZones,
-                ValidDaysFromFirstUse = validDaysFromFirstUse
+                ValidDaysFromFirstUse = validDaysFromFirstUse,
+                Trips = trips
             };
         }
 

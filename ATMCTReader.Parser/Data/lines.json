@@ -104,6 +104,10 @@
     "Name": "99 - PRUEBAS"
   },
   {
+    "Id": 364,
+    "Name": "E4 - Tarragona-Reus"
+  },
+  {
     "Id": 406,
     "Name": "6 - Camp Clar-St Pere i St Pau"
   },
@@ -117,11 +121,11 @@
   },
   {
     "Id": 567,
-    "Name": "Tarragona - Reus"
+    "Name": "Tarragona-Reus"
   },
   {
     "Id": 582,
-    "Name": "Falset - Marçà FFCC"
+    "Name": "Falset-Marçà FFCC"
   },
   {
     "Id": 767,
