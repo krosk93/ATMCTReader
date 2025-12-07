@@ -5,23 +5,30 @@
     },
     {
         "Id": 903,
-        "Name": "T-50/30"
+        "Name": "T-50/30",
+        "UnlimitedTime": false
     },
     {
         "Id": 908,
-        "Name": "T-Jove"
+        "Name": "T-Jove",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
     },
     {
         "Id": 914,
-        "Name": "T-10/30"
+        "Name": "T-10/30",
+        "UnlimitedTime": false
     },
     {
         "Id": 941,
-        "Name": "T-20/90"
+        "Name": "T-20/90",
+        "UnlimitedTime": false
     },
     {
         "Id": 996,
-        "Name": "T-365"
+        "Name": "T-365",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
     },
     {
         "Id": 1000,

@@ -1,11 +1,11 @@
+using ATMCTReader.Messages;
+using ATMCTReader.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using ATMCTReader.Models;
 
-namespace ATMCTReader.ViewModels;
+namespace ATMCTReader.Pages;
 
-public partial class MainViewModel : ObservableObject
+public partial class CardViewModel : ObservableObject
 {
     [ObservableProperty]
     private string _ownerName = string.Empty;
@@ -80,10 +80,10 @@ public partial class MainViewModel : ObservableObject
     }
 
 
-    public MainViewModel()
+    public CardViewModel()
     {
-        WeakReferenceMessenger.Default.Register<ValueChangedMessage<Card>>(this, (r, m) => {
-            var c = m.Value;
+        WeakReferenceMessenger.Default.Register<ReadCardResultMessage>(this, (r, m) => {
+            var c = m.Card;
             if (c == null) return;
             OwnerName = c.OwnerName ?? string.Empty;
             OwnerSurname1 = c.OwnerSurname1 ?? string.Empty;
@@ -97,5 +97,4 @@ public partial class MainViewModel : ObservableObject
             Validations = c.Validations.OrderByDescending(v => v.Instant);
         });
     }
-
 }

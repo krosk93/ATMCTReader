@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiIcons.Material.Outlined;
+using Microsoft.Extensions.Logging;
 
 namespace ATMCTReader;
 
@@ -13,7 +14,8 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+			.UseMaterialOutlinedMauiIcons();
 
 #if DEBUG
 		builder.Logging.AddDebug();
