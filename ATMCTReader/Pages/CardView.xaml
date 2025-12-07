@@ -6,7 +6,7 @@
              xmlns:models="clr-namespace:ATMCTReader.Models;assembly=ATMCTReader.Models"
              x:DataType="pages:CardViewModel"
              x:Class="ATMCTReader.Pages.CardView"
-             Title="CardView">
+             Title="Visor Targeta">
     <ContentPage.BindingContext>
         <pages:CardViewModel />
     </ContentPage.BindingContext>

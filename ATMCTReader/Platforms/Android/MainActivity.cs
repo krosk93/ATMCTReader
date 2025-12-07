@@ -24,6 +24,11 @@ public class MainActivity : MauiAppCompatActivity
             if (m == null) return;
             EnableNFC();
         });
+        
+        WeakReferenceMessenger.Default.Register<ReadCardResultMessage>(this, (r, m) => {
+            if (m == null) return;
+            if (m.Success) DisableNFC();
+        });
     }
     
     protected override void OnCreate(Bundle? savedInstanceState)
@@ -167,7 +172,9 @@ public class MainActivity : MauiAppCompatActivity
                 {
                     var cardBytes = card.ToArray();
                     var parsed = CardParser.ParseCard(cardBytes);
-                    WeakReferenceMessenger.Default.Send(new ValueChangedMessage<Card>(parsed));
+                    RunOnUiThread(() => {
+                        WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(true, null, parsed));
+                    });
                 }
                 catch (System.Exception ex)
                 {

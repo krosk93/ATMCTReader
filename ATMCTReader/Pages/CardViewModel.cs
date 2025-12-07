@@ -1,10 +1,10 @@
-using ATMCTReader.Messages;
 using ATMCTReader.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ATMCTReader.Pages;
 
+[QueryProperty(nameof(Card), "card")]
 public partial class CardViewModel : ObservableObject
 {
     [ObservableProperty]
@@ -36,6 +36,15 @@ public partial class CardViewModel : ObservableObject
 
     [ObservableProperty]
     private IEnumerable<Validation> _validations = new List<Validation>();
+    
+    [ObservableProperty]
+    private Card? _card = null;
+
+    [RelayCommand]
+    private async Task Back()
+    {
+        await Shell.Current.Navigation.PopAsync();
+    }
 
     public double TripsProgress { 
         get 
@@ -79,22 +88,22 @@ public partial class CardViewModel : ObservableObject
         OnPropertyChanged(nameof(ShowCurrentTicketSeparator));
     }
 
-
-    public CardViewModel()
-    {
-        WeakReferenceMessenger.Default.Register<ReadCardResultMessage>(this, (r, m) => {
-            var c = m.Card;
-            if (c == null) return;
-            OwnerName = c.OwnerName ?? string.Empty;
-            OwnerSurname1 = c.OwnerSurname1 ?? string.Empty;
-            OwnerSurname2 = c.OwnerSurname2 ?? string.Empty;
-            AccountId = c.AccountId.ToString();
-            ExpireDate = c.ExpireDate;
-            CardId = c.CardId;
-            CurrentTicket = c.CurrentTicket;
-            Profile = c.Profile.Name;
-            TopUps = c.TopUps;
-            Validations = c.Validations.OrderByDescending(v => v.Instant);
-        });
+    partial void OnCardChanged(Card? value)
+    {  
+        if(value != null) {
+            OwnerName = value.OwnerName ?? string.Empty;
+            OwnerSurname1 = value.OwnerSurname1 ?? string.Empty;
+            OwnerSurname2 = value.OwnerSurname2 ?? string.Empty;
+            AccountId = value.AccountId.ToString();
+            ExpireDate = value.ExpireDate;
+            CardId = value.CardId;
+            CurrentTicket = value.CurrentTicket;
+            Profile = value.Profile.Name;
+            TopUps = value.TopUps;
+            Validations = value.Validations.OrderByDescending(v => v.Instant);
+        }
     }
+
+
+    public CardViewModel() {}
 }

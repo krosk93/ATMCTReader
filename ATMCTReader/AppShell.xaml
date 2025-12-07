@@ -5,16 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ATMCTReader"
     xmlns:pages="clr-namespace:ATMCTReader.Pages"
-    Title="ATMCTReader">
+    Title="ATMCTReader"
+    FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="ATMCTReader"
-        ContentTemplate="{DataTemplate pages:ReadCard}"
-        Route="ReadCard" />
-
-    <ShellContent
-        Title="Targeta"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Llegir targeta"
+        ContentTemplate="{DataTemplate pages:ReadCardView}"
+        Route="card" />
 
 </Shell>

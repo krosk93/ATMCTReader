@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:Class="ATMCTReader.Pages.ReadCardView"
-             Title="ReadCardView">
+             Title="Llegir targeta">
     <VerticalStackLayout>
-        <Label 
-            Text="Apropa una targeta..."
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label Text="Error" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <skia:SKLottieView
+                Grid.Row="0"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                RepeatCount="-1"
+                Source="NFC_read.json"
+                HeightRequest="400"
+                WidthRequest="400"
+                />
+            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" Text="Apropa una targeta..." />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
