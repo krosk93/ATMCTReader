@@ -1,4 +1,5 @@
-﻿using MauiIcons.Material.Outlined;
+﻿using MauiIcons.Material;
+using MauiIcons.Material.Outlined;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 
@@ -17,6 +18,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
+			.UseMaterialMauiIcons()
 			.UseMaterialOutlinedMauiIcons();
 
 #if DEBUG

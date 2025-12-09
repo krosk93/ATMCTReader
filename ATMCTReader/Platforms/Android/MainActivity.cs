@@ -5,15 +5,13 @@ using Android.Nfc;
 using Android.Nfc.Tech;
 using Android.OS;
 using ATMCTReader.Parser;
-using ATMCTReader.Models;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using ATMCTReader.Messages;
 
 namespace ATMCTReader;
 
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density, ScreenOrientation = ScreenOrientation.Portrait)]
-[IntentFilter(new [] {NfcAdapter.ActionTechDiscovered})]
+[IntentFilter([NfcAdapter.ActionTechDiscovered])]
 public class MainActivity : MauiAppCompatActivity
 {
     private bool _nfcEnabled = false;
@@ -27,7 +25,7 @@ public class MainActivity : MauiAppCompatActivity
         
         WeakReferenceMessenger.Default.Register<ReadCardResultMessage>(this, (r, m) => {
             if (m == null) return;
-            if (m.Success) DisableNFC();
+            DisableNFC();
         });
     }
     
@@ -44,16 +42,24 @@ public class MainActivity : MauiAppCompatActivity
             _nfcEnabled = true;
             if (_nfcAdapter == null)
             {
-                var alert = new AlertDialog.Builder(this);
-                alert.SetTitle("NFC Not Supported");
-                alert.SetMessage("This device does not support NFC.");
-                alert.Show();
+                RunOnUiThread(() => {
+                    var alert = new AlertDialog.Builder(this);
+                    alert.SetTitle("NFC No soportat");
+                    alert.SetMessage("Aquest mòbil no té NFC.");
+                    alert.Show();
+                });
             }
             else
             {
                 var intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
                 var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.Mutable);
-                _nfcAdapter.EnableForegroundDispatch(this, pendingIntent, null, [[Java.Lang.Class.FromType(typeof(NfcA)).Name]]);
+                try 
+                {
+                    _nfcAdapter.EnableForegroundDispatch(this, pendingIntent, null, [[Java.Lang.Class.FromType(typeof(NfcA)).Name]]);
+                }
+                catch (Exception) 
+                {
+                }
             }
         }
     }
@@ -89,19 +95,24 @@ public class MainActivity : MauiAppCompatActivity
 
     private void ReadCard(Intent intent)
     {
-        var tag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
+        Tag? tag;
+        if (OperatingSystem.IsAndroidVersionAtLeast(33))
+            tag = (Tag?)intent.GetParcelableExtra(NfcAdapter.ExtraTag, Java.Lang.Class.FromType(typeof(Tag)));
+        else
+            tag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
+
         if (tag == null)
             return;
-
+        
+        RunOnUiThread(() => {
+            WeakReferenceMessenger.Default.Send(new ReadCardProgressMessage());
+        });
         Task.Run(async () => {
             var mfc = MifareClassic.Get(tag);
             if (mfc == null)
             {
                 RunOnUiThread(() => {
-                    var alert = new AlertDialog.Builder(this);
-                    alert.SetTitle("Error");
-                    alert.SetMessage("No sembla ser una targeta de l'ATM.");
-                    alert.Show();
+                    WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(false, "Not a MFC card", null));
                 });
                 return;
             }
@@ -167,37 +178,39 @@ public class MainActivity : MauiAppCompatActivity
                         }
                     }
                 }
-                // We have the full card bytes in `card` list. Parse and send to ViewModel via messenger.
-                try
+
+                if (failed)
                 {
-                    var cardBytes = card.ToArray();
-                    var parsed = CardParser.ParseCard(cardBytes);
                     RunOnUiThread(() => {
-                        WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(true, null, parsed));
+                        WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(false, "Error reading", null));
                     });
+                } else {
+                        // We have the full card bytes in `card` list. Parse and send to ViewModel via messenger.
+                    try
+                    {
+                        var cardBytes = card.ToArray();
+                        var parsed = CardParser.ParseCard(cardBytes);
+                        RunOnUiThread(() => {
+                            WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(true, null, parsed));
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        failed = true;
+                        sb.AppendLine($"Parser error: {ex.Message}");
+                    }
+                    if(failed) {
+                        RunOnUiThread(() => {
+                            WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(false, "Error parsing", null));
+                        });
+                    }
                 }
-                catch (System.Exception ex)
-                {
-                    failed = true;
-                    sb.AppendLine($"Parser error: {ex.Message}");
-                }
-                if(failed) {
-                    RunOnUiThread(() => {
-                        var alert = new AlertDialog.Builder(this);
-                        alert.SetTitle("Error");
-                        alert.SetMessage(sb.ToString());
-                        alert.SetPositiveButton("OK", (s, e) => { });
-                        alert.Show();
-                    });
-                }
+                
             }
-            catch (System.Exception ex)
+            catch (Exception)
             {
                 RunOnUiThread(() => {
-                    var alert = new AlertDialog.Builder(this);
-                    alert.SetTitle("Error");
-                    alert.SetMessage($"Error reading tag: {ex.Message}");
-                    alert.Show();
+                    WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(false, "Error", null));
                 });
             }
             finally

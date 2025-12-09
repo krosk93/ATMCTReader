@@ -21,10 +21,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>ATMCTReader</ApplicationTitle>
+		<ApplicationTitle>Tiquetaire</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.atmctreader</ApplicationId>
+		<ApplicationId>com.oscarrovira.atmctreader</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -46,7 +46,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#F28C00" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#F28C00" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\tiquetaire.svg" Color="#F28C00" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -59,6 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material" Version="5.0.0" />
 		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material.Outlined" Version="5.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />

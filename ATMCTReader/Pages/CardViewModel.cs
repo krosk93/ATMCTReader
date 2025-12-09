@@ -40,6 +40,16 @@ public partial class CardViewModel : ObservableObject
     [ObservableProperty]
     private Card? _card = null;
 
+    public double CardHeight
+    {
+        get
+        {
+            double v = DeviceDisplay.Current.MainDisplayInfo.Width / DeviceDisplay.Current.MainDisplayInfo.Density;
+            v -= 60;
+            return v / 1.586;
+        }
+    }
+
     [RelayCommand]
     private async Task Back()
     {
@@ -58,7 +68,7 @@ public partial class CardViewModel : ObservableObject
             }
         }
     }
-    public string TicketName => CurrentTicket?.Type.Name ?? "";
+    public string TicketName => CurrentTicket != null ? $"{CurrentTicket.Type.Name} ({CurrentTicket.NumberOfZones} zon{(CurrentTicket.NumberOfZones > 1 ? "es" : "a")})" : "";
     public bool ShowTrips => !CurrentTicket?.Type.UnlimitedTrips ?? false;
     public bool ShowExpiration => !CurrentTicket?.Type.UnlimitedTime ?? false;
     public DateTime TicketExpiration => CurrentTicket?.ExpireDate ?? DateTime.Now;
