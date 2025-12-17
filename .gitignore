@@ -425,3 +425,4 @@ obj/
 .packages
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,visualstudiocode,csharp,xamarinstudio
+*.keystore

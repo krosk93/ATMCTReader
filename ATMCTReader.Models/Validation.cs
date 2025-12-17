@@ -11,4 +11,5 @@ public class Validation
     public required Line Line { get; init; }
     public int Vehicle { get; init; }
     public bool IsTransfer { get; init; }
+    public int Passengers { get; init; }
 }

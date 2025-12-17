@@ -7,6 +7,7 @@ using Android.OS;
 using ATMCTReader.Parser;
 using CommunityToolkit.Mvvm.Messaging;
 using ATMCTReader.Messages;
+using AndroidX.Activity;
 
 namespace ATMCTReader;
 
@@ -31,9 +32,12 @@ public class MainActivity : MauiAppCompatActivity
     
     protected override void OnCreate(Bundle? savedInstanceState)
     {
+        SetTheme(Resource.Style.MainThemeEdgeToEdge);
+        
         base.OnCreate(savedInstanceState);
 
         _nfcAdapter = NfcAdapter.GetDefaultAdapter(this);
+        EdgeToEdge.Enable(this);
     }
 
     private void EnableNFC() 
@@ -44,15 +48,19 @@ public class MainActivity : MauiAppCompatActivity
             {
                 RunOnUiThread(() => {
                     var alert = new AlertDialog.Builder(this);
-                    alert.SetTitle("NFC No soportat");
-                    alert.SetMessage("Aquest mòbil no té NFC.");
+                    alert.SetTitle(ATMCTReader.Resources.Strings.ReadCardView.NFCNotAvailableTitle);
+                    alert.SetMessage(ATMCTReader.Resources.Strings.ReadCardView.NFCNotAvailableMessage);
                     alert.Show();
                 });
             }
             else
             {
                 var intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
-                var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.Mutable);
+                PendingIntent? pendingIntent;
+                if (OperatingSystem.IsAndroidVersionAtLeast(31))
+                    pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.Mutable);
+                else
+                    pendingIntent = PendingIntent.GetActivity(this, 0, intent, 0);
                 try 
                 {
                     _nfcAdapter.EnableForegroundDispatch(this, pendingIntent, null, [[Java.Lang.Class.FromType(typeof(NfcA)).Name]]);

@@ -19,6 +19,7 @@ public class Card
     public int StartYear { get; init; }
     public DateTime ExpireDate { get; init; }
     public int ExpireYear => ExpireDate.Year;
+    public required Authority Authority { get; init; }
     public int P { get; init; }
     public required Profile Profile { get; init; }
     public int EA { get; init; }
@@ -27,4 +28,5 @@ public class Card
     public required CurrentTicket CurrentTicket { get; init; }
     public required IEnumerable<TopUp> TopUps { get; init; }
     public required IEnumerable<Validation> Validations { get; init; }
+    public required byte[] Raw { get; init; }
 }

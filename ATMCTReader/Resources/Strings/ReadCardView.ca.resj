@@ -1,0 +1,12 @@
+{
+    "Strings": {
+        "ReadCard": "Llegir targeta",
+        "TapCard": "Apropa una targeta",
+        "Reading": "Llegint...",
+        "DoneReading": "Targeta llegida!",
+        "ErrorReading": "Error llegint",
+        "ReadFakeCard": "Llegir targeta falsa",
+        "NFCNotAvailableTitle": "NFC no disponible",
+        "NFCNotAvailableMessage": "Aquest dispositiu no té NFC o no està activat."
+    }
+}

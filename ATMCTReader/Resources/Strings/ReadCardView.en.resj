@@ -1,0 +1,12 @@
+{
+    "Strings": {
+        "ReadCard": "Read card",
+        "TapCard": "Tap a card",
+        "Reading": "Reading...",
+        "DoneReading": "Card read!",
+        "ErrorReading": "Error",
+        "ReadFakeCard": "Fake read a card",
+        "NFCNotAvailableTitle": "NFC not available",
+        "NFCNotAvailableMessage": "This device has no NFC or it is not available."
+    }
+}

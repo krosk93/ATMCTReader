@@ -105,7 +105,7 @@
   },
   {
     "Id": 364,
-    "Name": "E4 - Tarragona-Reus"
+    "Name": "e4 - Tarragona-Reus"
   },
   {
     "Id": 406,
@@ -120,12 +120,20 @@
     "Name": "86 - Tarragona-Estació del Camp"
   },
   {
+    "Id": 559,
+    "Name": "Pratdip-Reus-Tarragona"
+  },
+  {
     "Id": 567,
     "Name": "Tarragona-Reus"
   },
   {
     "Id": 582,
     "Name": "Falset-Marçà FFCC"
+  },
+  {
+    "Id": 598,
+    "Name": "e1 - El Vendrell-Tarragona"
   },
   {
     "Id": 767,
@@ -136,11 +144,23 @@
     "Name": "41 - Zona Educacional-Estació"
   },
   {
+    "Id": 787,
+    "Name": "22 - Hospital Joan XXIII-El Serrallo"
+  },
+  {
     "Id": 789,
     "Name": "34 - Colom-Les Gavarres"
   },
   {
     "Id": 790,
     "Name": "21 - Cap Muralles-Estació"
+  },
+  {
+    "Id": 803,
+    "Name": "L3"
+  },
+  {
+    "Id": 809,
+    "Name": "L9"
   }
 ]

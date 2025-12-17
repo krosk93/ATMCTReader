@@ -1,0 +1,17 @@
+[
+    {
+        "Id": 2,
+        "Name": "Camp de Tarragona",
+        "BaseColor": "#EC6E00"
+    },
+    {
+        "Id": 3,
+        "Name": "Àrea de Lleida",
+        "BaseColor": "#C00000"
+    },
+    {
+        "Id": 4,
+        "Name": "Àrea de Girona",
+        "BaseColor": "#005FA8"
+    }
+]

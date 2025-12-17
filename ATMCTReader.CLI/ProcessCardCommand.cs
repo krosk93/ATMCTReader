@@ -25,17 +25,17 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
 
     public override async Task<int> ExecuteAsync(CommandContext context, Settings settings, CancellationToken cancellationToken)
     {
-        if (settings.Pretty)
-        {
-            AnsiConsole.MarkupLine(" [bold][white on orangered1]  ATM [/] Camp de Tarragona[/]");
-            AnsiConsole.MarkupLine(" [grey85 on grey85]      [/] Autoritat Territorial de la Mobilitat");
-            AnsiConsole.MarkupLine(" [grey85 on grey85]      [/] [bold]Pwned![/]");
-            AnsiConsole.WriteLine();
-        }
         using BinaryReader reader = new(File.Open(settings.Path, FileMode.Open));
         byte[] card = reader.ReadBytes(1024);
         Card c = CardParser.ParseCard(card);
         
+        if (settings.Pretty)
+        {
+            AnsiConsole.MarkupLine($" [bold][white on orangered1]  ATM [/] {c.Authority.Name}[/]");
+            AnsiConsole.MarkupLine(" [grey85 on grey85]      [/] Autoritat Territorial de la Mobilitat");
+            AnsiConsole.MarkupLine(" [grey85 on grey85]      [/] [bold]Pwned![/]");
+            AnsiConsole.WriteLine();
+        }
         AnsiConsole.MarkupLine($"[bold]Targeta:[/] {c.CardId}");
         AnsiConsole.WriteLine($"         {c.AccountId}");
 
@@ -298,17 +298,18 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
                 .AddColumn("[bold]Linia[/]")
                 .AddColumn("[bold]Vehicle[/]")
                 .AddColumn("[bold]Zona[/]")
+                .AddColumn("[bold]Passatgers[/]")
                 .AddColumn("[bold]És transbord?[/]")
                 .Title = new TableTitle("[bold]Darreres 10 validacions[/]");
         }
         if(settings.Pretty) {
             foreach (var validation in c.Validations.OrderByDescending(v => v.Instant))
-                tripsTable.AddRow(validation.Company.Name, validation.Instant.ToString("dd/MM/yyyy HH:mm"), validation.Stop.Name, validation.Line.Name, validation.Vehicle.ToString(), validation.Zone.Name, validation.IsTransfer ? "Sí" : "No");
+                tripsTable.AddRow(validation.Company.Name, validation.Instant.ToString("dd/MM/yyyy HH:mm"), validation.Stop.Name, validation.Line.Name, validation.Vehicle.ToString(), validation.Zone.Name, validation.Passengers.ToString(), validation.IsTransfer ? "Sí" : "No");
         } else {
             foreach (var (validation, i) in c.Validations.Select((v, i) => (v, i)))
             {
 
-                AnsiConsole.WriteLine($"Viatge amb {validation.Company.Name} el {validation.Instant:dd/MM/yyyy} a les {validation.Instant:HH:mm} amb el vehicle {validation.Vehicle} des de {validation.Stop.Name} ({validation.Line.Name}) Zona: {validation.Zone.Name}");
+                AnsiConsole.WriteLine($"Viatge amb {validation.Company.Name} el {validation.Instant:dd/MM/yyyy} a les {validation.Instant:HH:mm} amb el vehicle {validation.Vehicle} des de {validation.Stop.Name} ({validation.Line.Name}) Zona: {validation.Zone.Name}{(validation.Passengers > 1 ? $" - {validation.Passengers} passatgers" : "")}");
                 
                 var address = 0x2c0 + (i / 3 * 0x40) + (i % 3 * 0x10);
                 var bytes = GetLine(card, address).Reverse().ToArray();
@@ -337,7 +338,8 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
                 AnsiConsole.Write(Convert.ToString(bytes[11], 2).PadLeft(8, '0'));
                 AnsiConsole.Write(Convert.ToString(bytes[12], 2).PadLeft(8, '0'));
                 AnsiConsole.Write(Convert.ToString(bytes[13], 2).PadLeft(8, '0'));
-                AnsiConsole.Write(Convert.ToString(bytes[14], 2).PadLeft(8, '0'));
+                AnsiConsole.Markup($"[mediumpurple3]{Convert.ToString(bytes[14] >> 5, 2).PadLeft(3, '0')}[/]");
+                AnsiConsole.Markup($"{Convert.ToString(bytes[14] & 31, 2).PadLeft(5, '0')}");
                 AnsiConsole.Write(Convert.ToString(bytes[15] >> 1, 2).PadLeft(7, '0'));
                 AnsiConsole.Markup($"[lime]{Convert.ToString(bytes[15] & 1, 2)}[/]");
                 AnsiConsole.WriteLine();
@@ -355,7 +357,13 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
                 AnsiConsole.Markup("[aquamarine1]lllllllllll[/]");
                 AnsiConsole.Markup("  ");
                 AnsiConsole.Markup("[lime]t[/]");
-                AnsiConsole.Markup("                                        ");
+                AnsiConsole.Markup(" ");
+                AnsiConsole.Markup("        ");
+                AnsiConsole.Markup("        ");
+                AnsiConsole.Markup("        ");
+                AnsiConsole.Markup("[mediumpurple3]nnn[/]");
+                AnsiConsole.Markup("     ");
+                AnsiConsole.Markup("       ");
                 AnsiConsole.Markup("[lime]t[/]");
                 AnsiConsole.WriteLine();
             }

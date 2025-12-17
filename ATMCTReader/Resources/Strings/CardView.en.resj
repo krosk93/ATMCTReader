@@ -1,0 +1,12 @@
+{
+    "Strings": {
+        "CardViewer": "Card viewer",
+        "Share": "Share",
+        "CurrentTicket": "Current ticket",
+        "ValidUntil": "Valid until {0:D}",
+        "RemainingTrips": "{0} trips left",
+        "TopUps": "Top-Ups",
+        "LastValidations": "Last taps",
+        "Expiration": "Expiration: {0:d}"
+    }
+}

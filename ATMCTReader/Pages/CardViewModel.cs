@@ -40,6 +40,12 @@ public partial class CardViewModel : ObservableObject
     [ObservableProperty]
     private Card? _card = null;
 
+    [ObservableProperty]
+    private string _authorityName = string.Empty;
+
+    [ObservableProperty]
+    private string _authorityColor = "#f28c00";
+
     public double CardHeight
     {
         get
@@ -54,6 +60,21 @@ public partial class CardViewModel : ObservableObject
     private async Task Back()
     {
         await Shell.Current.Navigation.PopAsync();
+    }
+
+    [RelayCommand]
+    private async Task ShareCard()
+    {
+        string fn = $"hf-mf-atm{Card?.Authority.Id}-{Card?.CardId}-{DateTime.Now:yyyyMMddHHmmss}.bin";
+        string file = Path.Combine(FileSystem.CacheDirectory, fn);
+
+        await File.WriteAllBytesAsync(file, Card?.Raw ?? []);
+
+        await Share.Default.RequestAsync(new ShareFileRequest
+        {
+            Title = "Compartir la targeta",
+            File = new ShareFile(file)
+        });
     }
 
     public double TripsProgress { 
@@ -111,6 +132,8 @@ public partial class CardViewModel : ObservableObject
             Profile = value.Profile.Name;
             TopUps = value.TopUps;
             Validations = value.Validations.OrderByDescending(v => v.Instant);
+            AuthorityName = value.Authority.Name;
+            AuthorityColor = value.Authority.BaseColor;
         }
     }
 

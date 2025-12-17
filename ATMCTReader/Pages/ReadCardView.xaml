@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              xmlns:pages="clr-namespace:ATMCTReader.Pages"
+             xmlns:strings="clr-namespace:ATMCTReader.Resources.Strings"
              x:Class="ATMCTReader.Pages.ReadCardView"
              x:DataType="pages:ReadCardViewModel"
-             Title="Llegir targeta">
+             Title="{x:Static strings:ReadCardView.ReadCard}">
     <ContentPage.BindingContext>
         <pages:ReadCardViewModel />
     </ContentPage.BindingContext>
@@ -24,10 +25,11 @@
                 HeightRequest="400"
                 WidthRequest="400"
                 />
-            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsWaiting}" Text="Apropa una targeta" />
-            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsReading}" Text="Llegint..." />
-            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsSuccess}" Text="Targeta llegida!" />
-            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsError}" Text="Error llegint" />
+            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsWaiting}" Text="{x:Static strings:ReadCardView.TapCard}" />
+            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsReading}" Text="{x:Static strings:ReadCardView.Reading}" />
+            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsSuccess}" Text="{x:Static strings:ReadCardView.DoneReading}" />
+            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="32" IsVisible="{Binding IsError}" Text="{x:Static strings:ReadCardView.ErrorReading}" />
         </Grid>
+        <Button Text="{x:Static strings:ReadCardView.ReadFakeCard}" Command="{Binding ReadMockCardCommand}" IsVisible="{Binding ShowDebug}" />
     </VerticalStackLayout>
 </ContentPage>

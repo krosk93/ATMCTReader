@@ -12,8 +12,20 @@
         "Name": "Monbus"
     },
     {
+        "Id": 154,
+        "Name": "TEISA"
+    },
+    {
+        "Id": 155,
+        "Name": "TMG"
+    },
+    {
         "Id": 202,
         "Name": "EMT Tarragona"
+    },
+    {
+        "Id": 205,
+        "Name": "Autocars del Penedès"
     },
     {
         "Id": 209,

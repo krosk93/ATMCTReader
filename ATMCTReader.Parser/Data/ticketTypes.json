@@ -1,5 +1,23 @@
 [
     {
+        "Id": 802,
+        "Name": "T-10"
+    },
+    {
+        "Id": 814,
+        "Name": "T-10/30",
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 852,
+        "Name": "T-10"
+    },
+    {
+        "Id": 864,
+        "Name": "T-10/30",
+        "UnlimitedTime": false
+    },
+    {
         "Id": 902,
         "Name": "T-10"
     },
@@ -13,6 +31,12 @@
         "Name": "T-Jove",
         "UnlimitedTrips": true,
         "UnlimitedTime": false
+    },
+    {
+        "Id": 913,
+        "Name": "T-16",
+        "UnlimitedTime": false,
+        "UnlimitedTrips": true
     },
     {
         "Id": 914,
@@ -32,6 +56,7 @@
     },
     {
         "Id": 1000,
-        "Name": "T-Jove (Reus)"
+        "Name": "T-Jove (Reus)",
+        "UnlimitedTime": false
     }
 ]

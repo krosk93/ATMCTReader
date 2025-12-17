@@ -19,6 +19,7 @@ public static class CardParser
         var ticketTypesProvider = new TicketTypesProvider();
         var companiesProvider = new CompaniesProvider();
         var profilesProvider = new ProfilesProvider();
+        var authoritiesProvider = new AuthoritiesProvider();
 
         var bytes = GetLine(card, 0x0).Reverse().ToArray();
         uint UUID = (uint)((bytes[12] << 24) + (bytes[13] << 16) + (bytes[14] << 8) + bytes[15]);
@@ -45,6 +46,8 @@ public static class CardParser
             bytes[11] & 15, 
             ((bytes[10] & 1) << 4) + (bytes[11] >> 4)
         ).AddYears(bytes[12] >> 4);
+
+        Authority authority = authoritiesProvider.Get(bytes[14] & 15);
 
         bytes = GetLine(card, 0xD0).Reverse().ToArray();
         int p = bytes[3] >> 2;
@@ -149,6 +152,7 @@ public static class CardParser
                 int line = ((bytes[9] & 127) << 4) + (bytes[10] >> 4);
                 int company = ((bytes[8] & 127) << 1) + (bytes[9] >> 7);
                 int stop = ((bytes[6] & 63) << 9) + (bytes[7] << 1) + (bytes[8] >> 7);
+                int passengers = bytes[14] >> 5;
                 validations.Add(new Validation
                 {
                     Instant = instant,
@@ -156,7 +160,8 @@ public static class CardParser
                     Vehicle = vehicle,
                     Zone = zonesProvider.Get(zone),
                     Line = linesProvider.Get(line),
-                    Stop = stopsProvider.Get(stop)
+                    Stop = stopsProvider.Get(stop),
+                    Passengers = passengers
                 });
             }
             curAddress += 0x10;
@@ -171,6 +176,7 @@ public static class CardParser
             OwnerSurname2 = ownerSurname2,
             StartYear = startYear,
             ExpireDate = expireDate,
+            Authority = authority,
             P = p,
             Profile = profile,
             EA = ea,
@@ -178,7 +184,8 @@ public static class CardParser
             LastValidation = lastValidation,
             CurrentTicket = currentTicket,
             TopUps = topUps,
-            Validations = validations
+            Validations = validations,
+            Raw = card
         };
     }
 }

@@ -1,0 +1,12 @@
+{
+    "Strings": {
+        "ReadCard": "Leer tarjeta",
+        "TapCard": "Acerca una tarjeta",
+        "Reading": "Leyendo...",
+        "DoneReading": "¡Tarjeta leída!",
+        "ErrorReading": "Error leyendo",
+        "ReadFakeCard": "Leer tarjeta falsa",
+        "NFCNotAvailableTitle": "NFC no disponible",
+        "NFCNotAvailableMessage": "Este dispositivo no tiene NFC o no está activado."
+    }
+}

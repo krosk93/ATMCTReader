@@ -1,0 +1,12 @@
+{
+    "Strings": {
+        "CardViewer": "Visor targeta",
+        "Share": "Compartir",
+        "CurrentTicket": "Títol actual",
+        "ValidUntil": "Vàlid fins el {0:D}",
+        "RemainingTrips": "{0} viatges restants",
+        "TopUps": "Recàrregues",
+        "LastValidations": "Darreres validacions",
+        "Expiration": "Caducitat: {0:d}"
+    }
+}

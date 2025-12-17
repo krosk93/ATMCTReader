@@ -2,6 +2,7 @@ using System;
 using ATMCTReader.Messages;
 using ATMCTReader.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SkiaSharp.Extended.UI.Controls;
 
@@ -29,6 +30,9 @@ public partial class ReadCardViewModel : ObservableObject
     public bool IsReading => ReadingStatus == ReadingStatus.READING;
     public bool IsSuccess => ReadingStatus == ReadingStatus.SUCCESS;
     public bool IsError => ReadingStatus == ReadingStatus.ERROR;
+
+    [ObservableProperty]
+    private bool _showDebug = false;
 
     public SKFileLottieImageSource AnimationName
     {
@@ -64,6 +68,10 @@ public partial class ReadCardViewModel : ObservableObject
 
     public ReadCardViewModel()
     {
+        #if DEBUG
+        ShowDebug = true;
+        #endif
+
         WeakReferenceMessenger.Default.Register<ReadCardRequestMessage>(this, (r, m) => {
             if (m == null) return;
             ReadingStatus = ReadingStatus.WAITING_FOR_CARD;
@@ -87,6 +95,91 @@ public partial class ReadCardViewModel : ObservableObject
                 ReadingStatus = ReadingStatus.WAITING_FOR_CARD;
             }
         });
+    }
+
+    [RelayCommand]
+    private async Task ReadMockCardAsync()
+    {
+        WeakReferenceMessenger.Default.Send(new ReadCardProgressMessage());
+        var zone = new Zone
+        {
+            Id = 140,
+            Name = "Zona 1"
+        };
+
+        var stop = new Stop
+        {
+            Id = 15412,
+            Name = "Mostra"
+        };
+
+        var company = new Company
+        {
+            Id = 124,
+            Name = "Transports Generals"
+        };
+
+        var line = new Line
+        {
+            Id = 25,
+            Name = "Linia Vermella"
+        };
+
+        var ticketType = new TicketType
+        {
+            Name = "T-Prova"
+        };
+
+        Card parsed = new Card
+        {
+            OwnerName = "",
+            OwnerSurname1 = "",
+            OwnerSurname2 = "",
+            Profile = new Profile
+            {
+                Name = ""
+            },
+            LastValidation = new LastValidation
+            {
+                Zone = zone,
+                Stop = stop,
+                Company = company,
+                Line = line
+            },
+            CurrentTicket = new CurrentTicket
+            {
+                Type = ticketType,
+                FirstZone = zone
+            },
+            TopUps = new List<TopUp>
+            {
+                new TopUp
+                {
+                    Type = ticketType,
+                    Date = DateTime.Today
+                }
+            },
+            Validations = new List<Validation>
+            {
+                new Validation
+                {
+                    Zone = zone,
+                    Stop = stop,
+                    Company = company,
+                    Line = line,
+                    Passengers = 2,
+                }
+            },
+            Authority = new Authority
+            {
+                Id = 2,
+                Name = "Àrea Fake",
+                BaseColor = "#005FA8"
+            },
+            Raw = new byte[10]
+        };
+        await Task.Delay(1500);
+        WeakReferenceMessenger.Default.Send(new ReadCardResultMessage(true, null, parsed));
     }
 
     partial void OnReadingStatusChanged(ReadingStatus value)
