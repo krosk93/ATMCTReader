@@ -141,7 +141,7 @@
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="4*" />
                                 </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0" WidthRequest="30" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center" StrokeThickness="0" BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type pages:CardViewModel}},Path=AuthorityColor}">
+                                <Border Grid.Column="0" WidthRequest="30" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center" StrokeThickness="0" BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type pages:CardViewModel}},Path=AuthorityColor,x:DataType=pages:CardViewModel}">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="15" />
                                     </Border.StrokeShape>
@@ -172,7 +172,7 @@
                                     <ColumnDefinition Width="1*" />
                                     <ColumnDefinition Width="4*" />
                                 </Grid.ColumnDefinitions>
-                                <Border Grid.Column="0" WidthRequest="30" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center" StrokeThickness="0" BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type pages:CardViewModel}},Path=AuthorityColor}">
+                                <Border Grid.Column="0" WidthRequest="30" HeightRequest="30" HorizontalOptions="Center" VerticalOptions="Center" StrokeThickness="0" BackgroundColor="{Binding Source={RelativeSource AncestorType={x:Type pages:CardViewModel}},Path=AuthorityColor,x:DataType=pages:CardViewModel}">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="15" />
                                     </Border.StrokeShape>
