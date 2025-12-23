@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
+             xmlns:s="clr-namespace:ATMCTReader.Resources.Strings"
+             x:Class="ATMCTReader.Components.PhysicalCard">
+    <Border
+        BackgroundColor="{StaticResource White}"
+        >
+        <Border.StrokeShape>
+            <RoundRectangle
+                CornerRadius="10" />
+        </Border.StrokeShape>
+        <Border.Shadow>
+            <Shadow
+                Radius="5"
+                Offset="5,5"
+                Opacity="0.2" />
+        </Border.Shadow>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="{Binding Profile}"
+                TextColor="{StaticResource Black}"
+                FontSize="{OnIdiom Default=Medium, Desktop=Large}"
+                FontAttributes="Bold"
+                Padding="5,2" />
+            <StackLayout Grid.Row ="0" Grid.Column="1">
+                <Border HeightRequest="18" WidthRequest="50" BackgroundColor="{Binding AuthorityColor}" Margin="0">
+                    <Border.StrokeThickness>0</Border.StrokeThickness>
+                </Border>
+                <Border WidthRequest="50" BackgroundColor="{StaticResource Gray200}" HeightRequest="32" Margin="0">
+                    <Border.StrokeThickness>0</Border.StrokeThickness>
+                </Border>
+            </StackLayout>
+            <Label
+                VerticalTextAlignment="Start"
+                Grid.Column="2"
+                Grid.Row="0"
+                Text="{Binding AuthorityName}" 
+                FontSize="{OnIdiom Default=Medium, Desktop=Large}"
+                FontAttributes="Bold" 
+                Padding="2,2,0,0" TextColor="{StaticResource Black}" />
+            <Border Grid.Row="1" Grid.Column="0" BackgroundColor="{Binding AuthorityColor}" StrokeThickness="0">
+            </Border>
+            <FlexLayout
+                Direction="Column"
+                JustifyContent="End"
+                Padding="10,0,0,0"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                >
+                <Label FontSize="{OnIdiom Default=Small, Desktop=Medium}" Text="{Binding OwnerName}" FontAttributes="Bold" TextColor="{StaticResource Black}" />
+                <Label FontSize="{OnIdiom Default=Small, Desktop=Medium}" Text="{Binding OwnerSurname1}" FontAttributes="Bold" TextColor="{StaticResource Black}" />
+                <Label FontSize="{OnIdiom Default=Small, Desktop=Medium}" Text="{Binding OwnerSurname2}" FontAttributes="Bold" TextColor="{StaticResource Black}" />
+                <Label FontSize="Micro" Text="{Binding AccountId}" TextColor="Goldenrod" />
+                <Label FontSize="Micro" Text="{Binding CardId}" TextColor="Goldenrod" />
+            </FlexLayout>
+            <VerticalStackLayout Grid.Column="2" Grid.Row="2">
+                <Label Margin="0,0,10,0" Text="{Binding ExpireDate,StringFormat={x:Static s:CardView.Expiration},TargetNullValue=''}" FontSize="{OnIdiom Default=Micro, Desktop=Small}" TextColor="{StaticResource Black}" HorizontalTextAlignment="End"  />
+                <FlexLayout HorizontalOptions="Fill" Margin="0,0,10,0" JustifyContent="End" Direction="Row">
+                    <mi:MauiIcon Icon="{mi:Material Train}" IconSize="{OnIdiom Default=24,Desktop=48}" IconColor="{Binding AuthorityColor}" />
+                    <mi:MauiIcon Icon="{mi:Material DirectionsBus}" IconSize="{OnIdiom Default=24,Desktop=48}" IconColor="{Binding AuthorityColor}" />
+                </FlexLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
+</ContentView>

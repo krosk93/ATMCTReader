@@ -132,12 +132,12 @@ public partial class ReadCardViewModel : ObservableObject
 
         Card parsed = new Card
         {
-            OwnerName = "",
-            OwnerSurname1 = "",
-            OwnerSurname2 = "",
+            OwnerName = "Subjecte",
+            OwnerSurname1 = "De",
+            OwnerSurname2 = "Prova",
             Profile = new Profile
             {
-                Name = ""
+                Name = "T-CARA"
             },
             LastValidation = new LastValidation
             {

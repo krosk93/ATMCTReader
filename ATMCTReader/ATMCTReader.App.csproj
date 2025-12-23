@@ -83,8 +83,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="MarkupExtensions/" />
 	  <Folder Include="Platforms/Android/Resources/xml/" />
 	  <Folder Include="Resources/Images/" />
+	  <Folder Include="Sources/" />
+	  <Folder Include="Triggers/" />
 	</ItemGroup>
 
 </Project>
