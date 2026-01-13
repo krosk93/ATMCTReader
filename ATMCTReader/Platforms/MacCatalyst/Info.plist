@@ -4,13 +4,13 @@
 <dict>
     <!-- The Mac App Store requires you specify if the app uses encryption. -->
     <!-- Please consult https://developer.apple.com/documentation/bundleresources/information_property_list/itsappusesnonexemptencryption -->
-    <!-- <key>ITSAppUsesNonExemptEncryption</key> -->
-    <!-- Please indicate <true/> or <false/> here. -->
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
 
     <!-- Specify the category for your app here. -->
     <!-- Please consult https://developer.apple.com/documentation/bundleresources/information_property_list/lsapplicationcategorytype -->
-    <!-- <key>LSApplicationCategoryType</key> -->
-    <!-- <string>public.app-category.YOUR-CATEGORY-HERE</string> -->
+    <key>LSApplicationCategoryType</key>
+    <string>public.app-category.travel</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>2</integer>
@@ -34,5 +34,8 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<!--Description of the Bluetooth request message-->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Utilitzem Bluetooth per accedir a un lector NFC</string>
 </dict>
 </plist>
