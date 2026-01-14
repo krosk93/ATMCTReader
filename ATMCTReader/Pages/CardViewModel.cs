@@ -1,6 +1,8 @@
+using ATMCTReader.Messages;
 using ATMCTReader.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace ATMCTReader.Pages;
 
@@ -46,15 +48,8 @@ public partial class CardViewModel : ObservableObject
     [ObservableProperty]
     private string _authorityColor = "#f28c00";
 
-    public double CardHeight
-    {
-        get
-        {
-            double v = DeviceDisplay.Current.MainDisplayInfo.Width / DeviceDisplay.Current.MainDisplayInfo.Density;
-            v -= 60;
-            return v / 1.586;
-        }
-    }
+    [ObservableProperty]
+    public double _cardHeight;
 
     [RelayCommand]
     private async Task Back()
@@ -138,5 +133,17 @@ public partial class CardViewModel : ObservableObject
     }
 
 
-    public CardViewModel() {}
+    public CardViewModel()
+    {
+        double v = DeviceDisplay.Current.MainDisplayInfo.Width / DeviceDisplay.Current.MainDisplayInfo.Density;
+        v -= 60;
+        CardHeight = v / 1.586;
+
+        WeakReferenceMessenger.Default.Register<SizeAllocatedMessage>(this, (r, m) =>
+        {
+            double v = m.Width / DeviceDisplay.Current.MainDisplayInfo.Density;
+            v -= 60;
+            CardHeight = v / 1.586;
+        });
+    }
 }
