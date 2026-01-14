@@ -9,6 +9,11 @@ public partial class App : Application
 
 	protected override Window CreateWindow(IActivationState? activationState)
 	{
-		return new Window(new AppShell());
+		var window = new Window(new AppShell());
+	#if MACCATALYST || WINDOWS
+		window.MinimumWidth = 600;
+		window.MinimumHeight = 600;
+	#endif
+		return window;
 	}
 }
