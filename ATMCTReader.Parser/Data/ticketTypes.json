@@ -4,6 +4,12 @@
         "Name": "T-10"
     },
     {
+        "Id": 804,
+        "Name": "T-Mes",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
         "Id": 814,
         "Name": "T-10/30",
         "UnlimitedTime": false
@@ -11,6 +17,12 @@
     {
         "Id": 852,
         "Name": "T-10"
+    },
+    {
+        "Id": 854,
+        "Name": "T-Mes",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
     },
     {
         "Id": 864,
@@ -24,6 +36,12 @@
     {
         "Id": 903,
         "Name": "T-50/30",
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 904,
+        "Name": "T-Mes",
+        "UnlimitedTrips": true,
         "UnlimitedTime": false
     },
     {

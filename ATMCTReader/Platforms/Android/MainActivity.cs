@@ -137,7 +137,7 @@ public class MainActivity : MauiAppCompatActivity
 
                 for (int sector = 0; sector < mfc.SectorCount; sector++)
                 {
-                    var keyB = ComputeKeyB(sector);
+                    var keyB = ComputeKey(sector, true);
                     bool auth = false;
                     int counter = 0;
                     do {
@@ -228,10 +228,12 @@ public class MainActivity : MauiAppCompatActivity
         });
     }
 
-    private byte[] ComputeKeyB(int sector)
+    private byte[] ComputeKey(int sector, bool keyB)
     {
 		var bytes = new byte[6];
-		bytes[0] = 0b10110000;
+		bytes[0] = (byte)(10 + (keyB ? 1 : 0));
+        bytes[0] <<= 4;
+
 		bytes[0] += (byte)(sector / 10);
 		bytes[1] = (byte)((sector % 10) << 4);
 

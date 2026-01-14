@@ -71,7 +71,10 @@ internal sealed class ProcessCardCommand : AsyncCommand<ProcessCardCommand.Setti
         AnsiConsole.MarkupLine($"[bold]Perfil:[/] {c.Profile.Name} [bold]EA:[/] {c.EA} [bold]M:[/] {c.M.ToString().PadLeft(4, '0')}");
         AnsiConsole.WriteLine();
 
-        AnsiConsole.MarkupLine($"[bold]Darrera validació:[/] Feta el {c.LastValidation.Instant:dd/MM/yyyy} a les {c.LastValidation.Instant:HH:mm} amb l'operador {c.LastValidation.Company.Name} des de {c.LastValidation.Stop.Name} ({c.LastValidation.Line.Name}) Zona: {c.LastValidation.Zone.Name}");
+        if(c.LastValidation != null)
+            AnsiConsole.MarkupLine($"[bold]Darrera validació:[/] Feta el {c.LastValidation.Instant:dd/MM/yyyy} a les {c.LastValidation.Instant:HH:mm} amb l'operador {c.LastValidation.Company.Name} des de {c.LastValidation.Stop.Name} ({c.LastValidation.Line.Name}) Zona: {c.LastValidation.Zone.Name}");
+        else
+            AnsiConsole.MarkupLine($"[bold]Darrera validació:[/] Mai validada");
         if(!settings.Pretty)
         {
             var bytes = GetLine(card, 0x100).Reverse().ToArray();

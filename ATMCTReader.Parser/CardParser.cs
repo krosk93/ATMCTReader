@@ -56,7 +56,7 @@ public static class CardParser
         int m = ((bytes[4] & 3) << 8) + bytes[5];
 
         bytes = GetLine(card, 0x100).Reverse().ToArray();
-        LastValidation lastValidation;
+        LastValidation? lastValidation = null;
         {
             int minutes = bytes[1] >> 2;
             int hours = ((bytes[1] & 0x3) << 3) + (bytes[2] >> 5);
@@ -68,15 +68,16 @@ public static class CardParser
             int op = ((bytes[6] & 1) << 7) + (bytes[7] >> 1);
             int line = ((bytes[7] & 1) << 10) + (bytes[8] << 2) + (bytes[9] >> 6);
             bool toppedUp = (bytes[15] & 1) == 1;
-            lastValidation = new LastValidation
-            {
-                Instant = new DateTime(year, month, day, hours, minutes, 0),
-                Zone = zonesProvider.Get(zone),
-                Stop = stopsProvider.Get(stop),
-                Company = companiesProvider.Get(op),
-                Line = linesProvider.Get(line),
-                ToppedUp = toppedUp,
-            };
+            if (month > 0 && day > 0)
+                lastValidation = new LastValidation
+                {
+                    Instant = new DateTime(year, month, day, hours, minutes, 0),
+                    Zone = zonesProvider.Get(zone),
+                    Stop = stopsProvider.Get(stop),
+                    Company = companiesProvider.Get(op),
+                    Line = linesProvider.Get(line),
+                    ToppedUp = toppedUp,
+                };
         }
         CurrentTicket currentTicket;
         {
