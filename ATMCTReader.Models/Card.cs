@@ -24,7 +24,7 @@ public class Card
     public required Profile Profile { get; init; }
     public int EA { get; init; }
     public int M { get; init; }
-    public required LastValidation LastValidation { get; init; }
+    public required LastValidation? LastValidation { get; init; }
     public required CurrentTicket CurrentTicket { get; init; }
     public required IEnumerable<TopUp> TopUps { get; init; }
     public required IEnumerable<Validation> Validations { get; init; }

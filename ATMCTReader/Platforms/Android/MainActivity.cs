@@ -137,7 +137,7 @@ public class MainActivity : MauiAppCompatActivity
 
                 for (int sector = 0; sector < mfc.SectorCount; sector++)
                 {
-                    var keyB = ComputeKeyB(sector);
+                    var keyB = ComputeKey(sector, true);
                     bool auth = false;
                     int counter = 0;
                     do {
@@ -228,21 +228,14 @@ public class MainActivity : MauiAppCompatActivity
         });
     }
 
-    private byte[] ComputeKeyB(int sector)
+    private byte[] ComputeKey(int sector, bool keyB)
     {
-        // Formula: key = 0xB00000000000 + (0x1000000000 * (sectorNumber in decimal as hex))
-        const ulong baseVal = 0xB00000000000UL;
-        const ulong multiplier = 0x1000000000UL;
+		var bytes = new byte[6];
+		bytes[0] = (byte)(10 + (keyB ? 1 : 0));
+        bytes[0] <<= 4;
 
-        // Interpret the decimal sector number as hexadecimal digits (e.g. sector 10 -> "10" -> 0x10)
-        ulong sectorHexValue = Convert.ToUInt64(sector.ToString(), 16);
-        ulong key = baseVal + (multiplier * sectorHexValue);
-
-        // Convert to 6-byte big-endian array
-        string hex = key.ToString("X12"); // 12 hex digits == 6 bytes
-        var bytes = new byte[6];
-        for (int i = 0; i < 6; i++)
-            bytes[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+		bytes[0] += (byte)(sector / 10);
+		bytes[1] = (byte)((sector % 10) << 4);
 
         return bytes;
     }
