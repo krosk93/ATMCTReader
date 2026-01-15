@@ -4,15 +4,107 @@
         "Name": ""
     },
     {
+        "Id": 1,
+        "Name": "FN-GENERAL"
+    },
+    {
+        "Id": 2,
+        "Name": "FN-ESPECIAL"
+    },
+    {
         "Id": 3,
         "Name": "T-16"
     },
     {
+        "Id": 4,
+        "Name": "ESTUDIANT"
+    },
+    {
+        "Id": 5,
+        "Name": ">70"
+    },
+    {
         "Id": 6,
-        "Name": "URV"
+        "Name": "UNIV."
+    },
+    {
+        "Id": 7,
+        "Name": "FACEC"
+    },
+    {
+        "Id": 8,
+        "Name": "FM-GENERAL"
+    },
+    {
+        "Id": 9,
+        "Name": "FM-ESPECIAL"
+    },
+    {
+        "Id": 10,
+        "Name": "DOCENT"
+    },
+    {
+        "Id": 11,
+        "Name": "NO DOCENT"
+    },
+    {
+        "Id": 12,
+        "Name": "SANITARI"
+    },
+    {
+        "Id": 13,
+        "Name": ""
+    },
+    {
+        "Id": 14,
+        "Name": "<26"
+    },
+    {
+        "Id": 15,
+        "Name": "<30"
+    },
+    {
+        "Id": 16,
+        "Name": ">65"
+    },
+    {
+        "Id": 17,
+        "Name": "FN-DISCAP"
+    },
+    {
+        "Id": 18,
+        "Name": "ATURAT"
+    },
+    {
+        "Id": 19,
+        "Name": "ILERNA"
+    },
+    {
+        "Id": 20,
+        "Name": "<24"
+    },
+    {
+        "Id": 21,
+        "Name": "ACOMPANYANT"
     },
     {
         "Id": 22,
         "Name": "T-JOVE"
+    },
+    {
+        "Id": 23,
+        "Name": "T-JOVE FN-G"
+    },
+    {
+        "Id": 24,
+        "Name": "T-JOVE FN-E"
+    },
+    {
+        "Id": 25,
+        "Name": "T-JOVE FM-G"
+    },
+    {
+        "Id": 26,
+        "Name": "T-JOVE FM-E"
     }
 ]
