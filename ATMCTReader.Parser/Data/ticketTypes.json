@@ -1,7 +1,18 @@
 [
     {
+        "Id": 801,
+        "Name": "T-Dia",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
         "Id": 802,
         "Name": "T-10"
+    },
+    {
+        "Id": 803,
+        "Name": "T-50/30",
+        "UnlimitedTime": false
     },
     {
         "Id": 804,
@@ -10,13 +21,71 @@
         "UnlimitedTime": false
     },
     {
+        "Id": 805,
+        "Name": "T-70/90",
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 807,
+        "Name": "T-Trim",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 808,
+        "Name": "T-Jove",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 810,
+        "Name": "T-Empleat",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 813,
+        "Name": "T-16",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    }
+    {
         "Id": 814,
         "Name": "T-10/30",
         "UnlimitedTime": false
     },
     {
+        "Id": 815,
+        "Name": "T-Anual",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 817,
+        "Name": "T-Esdeveniment"
+    },
+    {
+        "Id": 818,
+        "Name": "T-Promoció"
+    },
+    {
+        "Id": 819,
+        "Name": "T-Comerç"
+    },
+    {
+        "Id": 851,
+        "Name": "T-Dia",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
         "Id": 852,
         "Name": "T-10"
+    },
+    {
+        "Id": 853,
+        "Name": "T-50/30",
+        "UnlimitedTime": false
     },
     {
         "Id": 854,
@@ -25,8 +94,61 @@
         "UnlimitedTime": false
     },
     {
+        "Id": 855,
+        "Name": "T-70/90",
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 857,
+        "Name": "T-Trim",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 858,
+        "Name": "T-Jove",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 860,
+        "Name": "T-Empleat",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 863,
+        "Name": "T-16",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    }
+    {
         "Id": 864,
         "Name": "T-10/30",
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 865,
+        "Name": "T-Anual",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 867,
+        "Name": "T-Esdeveniment"
+    },
+    {
+        "Id": 868,
+        "Name": "T-Promoció"
+    },
+    {
+        "Id": 869,
+        "Name": "T-Comerç"
+    },
+    {
+        "Id": 901,
+        "Name": "T-Dia",
+        "UnlimitedTrips": true,
         "UnlimitedTime": false
     },
     {
@@ -45,21 +167,56 @@
         "UnlimitedTime": false
     },
     {
+        "Id": 905,
+        "Name": "T-70/90",
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 907,
+        "Name": "T-Trim",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
         "Id": 908,
         "Name": "T-Jove",
         "UnlimitedTrips": true,
         "UnlimitedTime": false
     },
     {
+        "Id": 910,
+        "Name": "T-Empleat",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
         "Id": 913,
         "Name": "T-16",
-        "UnlimitedTime": false,
-        "UnlimitedTrips": true
-    },
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    }
     {
         "Id": 914,
         "Name": "T-10/30",
         "UnlimitedTime": false
+    },
+    {
+        "Id": 915,
+        "Name": "T-Anual",
+        "UnlimitedTrips": true,
+        "UnlimitedTime": false
+    },
+    {
+        "Id": 917,
+        "Name": "T-Esdeveniment"
+    },
+    {
+        "Id": 918,
+        "Name": "T-Promoció"
+    },
+    {
+        "Id": 919,
+        "Name": "T-Comerç"
     },
     {
         "Id": 941,
