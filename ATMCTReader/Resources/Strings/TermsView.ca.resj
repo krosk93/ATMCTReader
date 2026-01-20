@@ -1,0 +1,11 @@
+{
+    "Strings": {
+        "Warning": "Avís important",
+        "WarningText1": "Tiquetaire és una aplicació independent i no oficial. Ha estat desenvolupada sense autorització de la Generalitat de Catalunya ni de cap de les Autoritats Territorials de Mobilitat (ATM).",
+        "WarningText2": "L'aplicació no envia, processa ni emmagatzema cap dada en servidors externs. Tota la informació es gestiona exclusivament al dispositiu de l'usuari, esborrant-se un cop es tanca l'aplicació.",
+        "WarningText3": "L'ús d'aquesta aplicació és sota la responsabilitat exclusiva de l'usuari.",
+        "DontShowAgain": "No tornar a mostrar aquest avís",
+        "Continue": "Acceptar i continuar",
+        "Exit": "Sortir"
+    }
+}
