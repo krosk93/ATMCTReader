@@ -231,10 +231,7 @@ public class MainActivity : MauiAppCompatActivity
     private byte[] ComputeKey(int sector, bool keyB)
     {
 		var bytes = new byte[6];
-		bytes[0] = (byte)(10 + (keyB ? 1 : 0));
-        bytes[0] <<= 4;
-
-		bytes[0] += (byte)(sector / 10);
+		bytes[0] = (byte)(((10 + (keyB ? 1 : 0)) << 4) + (sector / 10));
 		bytes[1] = (byte)((sector % 10) << 4);
 
         return bytes;

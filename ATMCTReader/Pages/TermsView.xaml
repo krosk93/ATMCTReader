@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:s="clr-namespace:ATMCTReader.Resources.Strings"
+             x:Class="ATMCTReader.Pages.TermsView"
+             Title="TermsView">
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Label 
+            Text="{x:Static s:TermsView.Warning}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" FontSize="Title" FontAttributes="Bold" />
+        <Label Text="{x:Static s:TermsView.WarningText1}" HorizontalTextAlignment="Justify" />
+        <Label Text="{x:Static s:TermsView.WarningText2}" HorizontalTextAlignment="Justify" />
+        <Label Text="{x:Static s:TermsView.WarningText3}" HorizontalTextAlignment="Justify" />
+        <HorizontalStackLayout>
+            <CheckBox x:Name="DontShowAgain" />
+            <Label Text="{x:Static s:TermsView.DontShowAgain}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+        <Button Text="{x:Static s:TermsView.Continue}" Clicked="OnContinueClicked" />
+        <Button Text="{x:Static s:TermsView.Exit}" Clicked="OnExitClicked" />
+    </VerticalStackLayout>
+</ContentPage>
